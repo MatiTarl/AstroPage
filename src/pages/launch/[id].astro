@@ -1,0 +1,34 @@
+---
+import { getLauchBy, getLastesLaunches } from "../../services/spacex.ts";
+import  Layout from "../../layouts/Layout.astro"
+
+export const prerender = false;
+
+const { id } = Astro.params;
+
+let launch;
+if (id) {
+  launch = await getLauchBy({ id });
+}
+
+
+
+// Este seria el caso para que haga un renderizado de todas la paginas para
+// cuando se haga la build (Es una forma media incorrecta de hacerla con Astro)
+
+// export async function getStaticPaths() {
+
+//     const launches = await getLastesLaunches()
+
+//     return launches.map ( launch => ({
+//         params: { id: launch.id }
+//     }))
+// }
+
+---
+
+<Layout title="Card Id">
+  <article>
+    {launch?.id}
+  </article>
+</Layout>
